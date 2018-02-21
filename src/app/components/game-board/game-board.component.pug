@@ -1,51 +1,6 @@
-.game-board
+.game-board.my-3
   table.table.table-bordered
     tbody
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-      tr
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
-        td O
+      tr(*ngFor='let row of gameMatrix')
+        td(*ngFor='let coin of row', (click)='onCoinClicked(coin)')
+          app-game-coin([coin]='coin')

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Coin} from '../../models/coin';
 
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent {
 
-  constructor() { }
+  @Input() gameMatrix: Coin[][];
+  @Output() coinClicked = new EventEmitter<Coin>();
 
-  ngOnInit() {
+  onCoinClicked(coin: Coin) {
+    this.coinClicked.emit(coin);
   }
 
 }
