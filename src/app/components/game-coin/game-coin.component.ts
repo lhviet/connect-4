@@ -9,16 +9,23 @@ import {Coin} from '../../models/coin';
 export class GameCoinComponent {
 
   @Input() coin: Coin;
+  @Input() isAvailable: boolean;
 
   getFillColor(): string {
     if (!this.coin || this.coin.isUnset()) {
       return;
     }
     if (this.coin.isOfPlayer1()) {
-      return 'red';
+      return '#ff7864';
     }
     if (this.coin.isOfPlayer2()) {
-      return 'yellow';
+      return '#fbee5a';
+    }
+  }
+
+  getBorderColor(): string {
+    if (this.coin.isUnset() && this.isAvailable) {
+      return 'rgba(52, 141, 222, 0.9)';
     }
   }
 }

@@ -9,10 +9,17 @@ import {Coin} from '../../models/coin';
 export class GameBoardComponent {
 
   @Input() gameMatrix: Coin[][];
+  @Input() availablePositionSet: Set<string>;
   @Output() coinClicked = new EventEmitter<Coin>();
+
+  hoveringCol: number;
 
   onCoinClicked(coin: Coin) {
     this.coinClicked.emit(coin);
   }
+
+  onMouseEnter = (colIndex: number) => this.hoveringCol = colIndex;
+
+  onMouseLeave = () => this.hoveringCol = -1;
 
 }

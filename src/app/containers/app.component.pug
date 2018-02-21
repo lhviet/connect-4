@@ -1,1 +1,6 @@
-app-game-board([gameMatrix]='gameMatrix', (coinClicked)='onCoinClicked($event)')
+.app-component
+  h1.text-center.py-5 Turn of {{playerTurn}}
+  app-game-board(
+  [gameMatrix]='gameMatrix',
+  [availablePositionSet]='availablePositionSet',
+  (coinClicked)='onCoinClicked($event)')

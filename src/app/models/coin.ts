@@ -3,10 +3,19 @@ import {ECoin} from '../enums/e-coin.enum';
 
 export class Coin implements ICoin {
 
-  state: ECoin;
+  state;
 
-  constructor() {
+  // encode position as a string to simplify the comparison & filter, instead of using an object like {row: number, col: number}
+  // i.e., "43" means row=4, col=3
+  private _position: string;
+  private _row: number;
+  private _col: number;
+
+  constructor(row: number, col: number) {
     this.state = ECoin.unset;
+    this._row = row;
+    this._col = col;
+    this._position = row.toString() + col.toString();
   }
 
   isUnset = (): boolean => this.state === ECoin.unset;
@@ -18,4 +27,10 @@ export class Coin implements ICoin {
       this.state = state;
     }
   }
+
+  get position() {
+    return this._position;
+  }
+  get row(): number { return this._row; }
+  get col(): number { return this._col; }
 }

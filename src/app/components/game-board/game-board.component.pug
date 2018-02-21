@@ -1,6 +1,24 @@
 .game-board.my-3
-  table.table.table-bordered
+  table.table.table-bordered((mouseleave)='onMouseLeave()')
+    thead
+      tr
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 0')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 1')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 2')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 3')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 4')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 5')
+        th.text-center
+          i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 6')
     tbody
       tr(*ngFor='let row of gameMatrix')
-        td(*ngFor='let coin of row', (click)='onCoinClicked(coin)')
-          app-game-coin([coin]='coin')
+        td(*ngFor='let coin of row; let i = index;', (click)='onCoinClicked(coin)', (mouseenter)='onMouseEnter(i)')
+          app-game-coin(
+          [coin]='coin',
+          [isAvailable]='availablePositionSet.has(coin.position)')
