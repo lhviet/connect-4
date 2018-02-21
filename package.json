@@ -4,6 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "pug:b": "pug src",
+    "pug:w": "pug src -P -w",
+    "prebuild": "yarn run pug:b",
+    "dev": "yarn run pug:b && ng serve --port 8800 --open",
+    "dev:w": "concurrently \"yarn run pug:w\" \"ng serve --host=0.0.0.0 --disable-host-check --port 80 --open\"",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
@@ -23,6 +28,8 @@
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.0.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
@@ -32,6 +39,8 @@
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "@types/bootstrap": "^3.3.38",
+    "@types/jquery": "^3.3.0",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
@@ -43,6 +52,9 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "pug-cli": "^1.0.0-alpha6",
+    "concurrently": "^3.5.0",
+    "typescript": "~2.5.3",
+    "popper.js": "^1.12.9"
   }
 }

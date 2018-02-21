@@ -1,0 +1,322 @@
+@import "my-variables";
+
+.cursor-p {
+  cursor: pointer;
+}
+
+// custom shadow effects
+
+// custom background color
+
+.bg-white-d65 {
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+.bg-light-blue {
+  background: $bg-default;
+}
+.bg-blue-dark {
+  background-color: $blue-dark;
+}
+
+// custom padding
+.px-13 {
+  padding-left: ($spacer * 13);
+  padding-right: ($spacer * 13);
+}
+
+.px-15 {
+  padding-left: ($spacer * 15);
+  padding-right: ($spacer * 15);
+}
+
+// custom margins
+.ml-12 {
+  margin-left: ($spacer * 12);
+}
+
+.ml-15 {
+  margin-left: ($spacer * 15);
+}
+
+.mt-md5 {
+  margin-top: -($spacer * .5);
+}
+
+// custom t-l-b-r
+.t-0 {
+  top: 0;
+}
+
+.t-3 {
+  top: 3rem;
+}
+
+.t-4 {
+  top: 4rem;
+}
+
+.t-d3 {
+  top: .3rem !important;
+}
+
+.t-d65 {
+  top: .65rem !important;
+}
+
+.t-md5 {
+  top: -.5rem;
+}
+
+.t-m4 {
+  top: -4rem;
+}
+
+.r-md25 {
+  right: -.25rem;
+}
+
+
+.r-0 {
+  right: 0;
+}
+
+.r-d5 {
+  right: .5rem;
+}
+
+.r-1 {
+  right: 1rem;
+}
+
+.r-2 {
+  right: 2rem;
+}
+
+.b-m1 {
+  bottom: -1rem !important;
+}
+
+.b-0 {
+  bottom: 0;
+}
+
+.b-1 {
+  bottom: 1rem;
+}
+
+.l-d5 {
+  left: .5rem;
+}
+
+// custom transition
+.transition-500 {
+  transition: all ease .5s;
+}
+
+.transition-600 {
+  transition: all ease .6s;
+}
+
+.transition-1000 {
+  transition: all ease 1s;
+}
+
+// custom position
+.pos-r {
+  position: relative !important;
+}
+
+.pos-a {
+  position: absolute !important;
+}
+
+.pos-s {
+  position: static !important;
+}
+
+// custom height
+.h-0 {
+  height: 0;
+}
+
+.h-8 {
+  height: 8rem;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.h-30px {
+  height: 30px;
+}
+.h-50px {
+  height: 50px;
+}
+.h-60px {
+  height: 60px;
+}
+.h-70px {
+  height: 70px;
+}
+.h-80px {
+  height: 80px;
+}
+.h-90px {
+  height: 90px;
+}
+.h-120px {
+  height: 120px;
+}
+.h-150px {
+  height: 150px;
+}
+
+// custom width
+.w-0 {
+  width: 0;
+}
+
+.w-100px {
+  width: 100px;
+}
+
+.w-130px {
+  width: 130px;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-hidden-y {
+  overflow-y: hidden;
+}
+
+// custom border
+
+.border-s-gray {
+  border: solid 1px $gray-700;
+}
+
+.border-x {
+  border-left: 1px solid $gray-400;
+  border-right: 1px solid $gray-400;
+}
+
+.border-y {
+  border-top: 1px solid $gray-400;
+  border-bottom: 1px solid $gray-400;
+}
+
+.border-t-lighter {
+  border-top: 1px solid $gray-300;
+}
+
+.border-b {
+  border-bottom: 1px solid $gray-400;
+}
+
+.b-rad-2 {
+  border-radius: 2rem;
+}
+
+// custom z-index
+.zi-1 {
+  z-index: 1;
+}
+
+// custom opacity
+@for $i from 1 through 10 {
+  .opa-#{$i} {
+    opacity: #{$i/10};
+  }
+}
+
+// custom hover
+.hover-o-5 {
+  opacity: .5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.hover-o-7 {
+  opacity: .7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// custom font-weight
+.font-weight-500 {
+  font-weight: 500;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.font-weight-700 {
+  font-weight: 700;
+}
+
+// custom font-size
+
+.fs-d8e {
+  font-size: .8em;
+}
+
+.fs-1d2e {
+  font-size: 1.2em;
+}
+
+.fs-1d5e {
+  font-size: 1.5em;
+}
+
+.fs-2e {
+  font-size: 2em;
+}
+
+.fs-3e {
+  font-size: 3em;
+}
+
+// custom word & overflow
+.word-break-a {
+  word-break: break-all;
+}
+
+@media (max-width: 767px) {
+  // for under tablet
+  .mx-sm-m-1 {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+
+  .w-sm-inherit {
+    width: inherit !important;
+    max-width: inherit !important;
+  }
+
+  .w-sm-120px-o {
+    width: 120px;
+    overflow: hidden;
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+  /* For tablet up: */
+  .ml-md-13 {
+    margin-left: ($spacer * 13);
+  }
+}
+
+/* For desktop: */
+@media only screen and (min-width: 992px) {
+}

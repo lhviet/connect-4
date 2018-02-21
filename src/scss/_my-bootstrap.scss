@@ -1,0 +1,10 @@
+@import './my-variables';
+
+// custom bootstrap css
+
+.input-group-prepend,
+.input-group-append {
+  .icon {
+    line-height: unset;
+  }
+}

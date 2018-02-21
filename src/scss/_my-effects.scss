@@ -1,0 +1,30 @@
+.rotate-180 {
+  transition: transform 250ms ease;
+
+  &.rotate-active {
+    transform: rotate( -180deg );
+  }
+}
+
+// below effect is to add to btn-outline-light class from bootstrap
+// because its effect is not satisfied our requirement
+.hov-black {
+  &:hover,
+  &:active {
+    color: black !important;
+  }
+}
+
+// animations
+@keyframes an-spin {
+  from {
+    transform:rotate(0deg);
+  }
+  to {
+    transform:rotate(360deg);
+  }
+}
+.an-spin {
+  display: inline-block;
+  animation: an-spin 2s infinite linear;
+}
