@@ -10,6 +10,7 @@ export class GameBoardComponent {
 
   @Input() gameMatrix: Coin[][];
   @Input() availablePositionSet: Set<string>;
+  @Input() winCoinPositions: string[];
   @Output() coinClicked = new EventEmitter<Coin>();
 
   hoveringCol: number;

@@ -13,8 +13,8 @@ export class GameService {
   player1 = new Player(ECoin.player1);
   player2 = new Player(ECoin.player2);
 
-  winCoinPositions: string[];
-  availablePositionSet: Set<string>;
+  winCoinPositions: string[] = [];
+  availablePositionSet: Set<string> = new Set();
 
   constructor() {
 
@@ -24,6 +24,7 @@ export class GameService {
   }
 
   resetGameState() {
+    this.gameStateMatrix.length = 0;
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
       const row: Coin[] = [];
       for (let colIndex = 0; colIndex < 7; colIndex++) {
@@ -31,8 +32,10 @@ export class GameService {
       }
       this.gameStateMatrix.push(row);
     }
-    console.log(this.gameStateMatrix);
-    this.availablePositionSet = new Set(['50', '51', '52', '53', '54', '55', '56']);
+    this.availablePositionSet.clear();
+    ['50', '51', '52', '53', '54', '55', '56']
+      .forEach(pos => this.availablePositionSet.add(pos));
+    this.winCoinPositions.length = 0;
   }
 
   // determine current turn of player
@@ -44,7 +47,8 @@ export class GameService {
       this.getCurrentTurnPlayer().setCoin(coin);
 
       // check the win positions in every step made
-      this.winCoinPositions = GameHelper.getWinPositions(this.gameStateMatrix, coin);
+      this.winCoinPositions.length = 0;
+      this.winCoinPositions.push(...GameHelper.getWinPositions(this.gameStateMatrix, coin));
       console.log('winCoinPositions = ', this.winCoinPositions);
       if (this.winCoinPositions && this.winCoinPositions.length === 4) {
         return;

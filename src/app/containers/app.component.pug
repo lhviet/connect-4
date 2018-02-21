@@ -1,6 +1,9 @@
 .app-component
   h1.text-center.py-5 Turn of {{playerTurn}}
+  .form-group.text-center
+    button.btn.btn-outline-danger((click)='resetGame()') New Game
   app-game-board(
   [gameMatrix]='gameMatrix',
   [availablePositionSet]='availablePositionSet',
+  [winCoinPositions]='winCoinPositions',
   (coinClicked)='onCoinClicked($event)')

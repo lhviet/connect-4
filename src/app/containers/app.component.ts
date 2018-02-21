@@ -16,6 +16,7 @@ export class AppComponent {
 
   gameMatrix = this.gameService.gameStateMatrix;
   availablePositionSet = this.gameService.availablePositionSet;
+  winCoinPositions = this.gameService.winCoinPositions;
 
   playerTurn = PLAYER_1;
 
@@ -23,8 +24,13 @@ export class AppComponent {
   }
 
   onCoinClicked = (coin: Coin) => {
+    if (this.winCoinPositions.length === 4) {
+      return;
+    }
     this.gameService.setCoin(coin);
     this.playerTurn = this.gameService.getCurrentTurnPlayer().identity === ECoin.player1 ? PLAYER_1 : PLAYER_2;
   }
+
+  resetGame = () => this.gameService.resetGameState();
 
 }

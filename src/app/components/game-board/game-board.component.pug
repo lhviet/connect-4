@@ -18,7 +18,10 @@
           i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 6')
     tbody
       tr(*ngFor='let row of gameMatrix')
-        td(*ngFor='let coin of row; let i = index;', (click)='onCoinClicked(coin)', (mouseenter)='onMouseEnter(i)')
+        td(*ngFor='let coin of row; let i = index;',
+        [class.win]='winCoinPositions && winCoinPositions.indexOf(coin.position) > -1',
+        (click)='onCoinClicked(coin)',
+        (mouseenter)='onMouseEnter(i)')
           app-game-coin(
           [coin]='coin',
           [isAvailable]='availablePositionSet.has(coin.position)')
