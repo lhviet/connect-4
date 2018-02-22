@@ -15,6 +15,8 @@ export class GameBoardComponent {
 
   hoveringCol: number;
 
+  isPresentationMode = true;
+
   onCoinClicked(coin: Coin) {
     this.coinClicked.emit(coin);
   }
@@ -23,4 +25,5 @@ export class GameBoardComponent {
 
   onMouseLeave = () => this.hoveringCol = -1;
 
+  onClickPresentMode = () => this.isPresentationMode = !this.isPresentationMode;
 }

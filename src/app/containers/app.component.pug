@@ -1,9 +1,8 @@
 .bg-dark.fixed-top
   nav.navbar.navbar-expand-lg.navbar-dark
     a.navbar-brand(href='https://www.glamcorner.com.au/') GlamCorner
-    #navbarSupportedContent.collapse.navbar-collapse
-      .ml-auto
-        button.btn.btn-outline-warning((click)='resetGame()') New Game
+    .ml-auto
+      button.btn.btn-outline-warning((click)='resetGame()') New Game
 .app-component
   .form-group.d-flex.justify-content-between
     .d-block
@@ -14,9 +13,10 @@
         span(*ngIf='gameStore.player2.isComputer') Play with Human
         span(*ngIf='!gameStore.player2.isComputer') Play with Robot
   .header-title.text-center {{ gameHeaderTitle }}
-  app-game-board(
-  [gameMatrix]='gameStore.gameStateMatrix',
-  [availablePositionSet]='gameStore.availablePositionSet',
-  [winCoinPositions]='gameStore.winCoinPositions',
-  (coinClicked)='onCoinClicked($event)')
+  .app-game-board
+    app-game-board(
+    [gameMatrix]='gameStore.gameStateMatrix',
+    [availablePositionSet]='gameStore.availablePositionSet',
+    [winCoinPositions]='gameStore.winCoinPositions',
+    (coinClicked)='onCoinClicked($event)')
   .notification.text-danger.text-center {{notificationMessage}}

@@ -1,3 +1,7 @@
+.form-inline.justify-content-end
+  .pr-3 ASCII mode
+  button.btn.btn-outline-secondary.btn-sm([class.active]='!isPresentationMode', (click)='onClickPresentMode()')
+    i.fa.fa-code
 .game-board.my-3
   .game-table
     table.table.table-bordered((mouseleave)='onMouseLeave()')
@@ -19,10 +23,11 @@
             i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 6')
       tbody
         tr(*ngFor='let row of gameMatrix')
-          td(*ngFor='let coin of row; let i = index;',
+          td.text-center.align-middle(*ngFor='let coin of row; let i = index;',
           [class.win]='winCoinPositions && winCoinPositions.indexOf(coin.position) > -1',
           (click)='onCoinClicked(coin)',
           (mouseenter)='onMouseEnter(i)')
-            app-game-coin(
+            app-game-coin(*ngIf='isPresentationMode',
             [coin]='coin',
             [isAvailable]='availablePositionSet.has(coin.position)')
+            span(*ngIf='!isPresentationMode', [class.font-weight-bold]='coin.state > 1') {{coin.state}}
