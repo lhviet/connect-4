@@ -13,6 +13,7 @@ nav {
   .app-players {
     position: relative;
     width: 100%;
+    margin-bottom: 20px;
 
     @media only screen and (min-width: 768px) {
       position: absolute;
@@ -27,8 +28,9 @@ nav {
     position: relative;
 
     .header-title {
-      font-size: 2rem;
-      padding-bottom: 10px;
+      font-size: 1.5rem;
+      float: left;
+      margin-top: -10px;
     }
 
     .notification {
@@ -36,4 +38,13 @@ nav {
       height: 2rem;
     }
   }
+
+  .app-info {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+.app-footer {
+
 }

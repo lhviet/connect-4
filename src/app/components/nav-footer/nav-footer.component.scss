@@ -1,0 +1,34 @@
+.footer-wrapper {
+  border-top: solid 1px #9E9E9E;
+  position: relative;
+  color: white;
+
+  .footer {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5px;
+    display: flex;
+    align-content: space-between;
+
+    .copyright,
+    .contact {
+      display: inline-block;
+      width: 100%;
+      line-height: 60px;
+    }
+    .contact {
+      text-align: right;
+
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .footer {
+      width: 70%;
+    }
+  }
+}
