@@ -8,7 +8,7 @@
     "pug:w": "pug src -P -w",
     "prebuild": "yarn run pug:b",
     "dev": "yarn run pug:b && ng serve --port 8800 --open",
-    "dev:w": "concurrently \"yarn run pug:w\" \"ng serve --host=0.0.0.0 --disable-host-check --port 80 --open\"",
+    "dev:w": "concurrently \"yarn run pug:w\" \"ng serve --host=0.0.0.0 --disable-host-check --port 8080 --open\"",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",

@@ -1,7 +1,7 @@
 .game-board {
   position: relative;
   width: 100%;
-  padding-top: 95%;
+  padding-top: calc((6 / 7) * 100% + 40px);
 
   .game-table {
     position: absolute;
@@ -15,22 +15,23 @@
     width: 100%;
     height: 100%;
 
+    th, td {
+      padding: 10px;
+    }
+
     tbody {
       background-color: white;
     }
 
-    td {
-      padding: 10px;
-
-      &.win {
-        background-color: #3c5982;
-      }
+    td.win {
+      background-color: #3c5982;
     }
   }
 
   i {
     color: rgba(128, 128, 128, 0.5);
     transition: all ease .1s;
+    font-size: 1.25rem;
 
     &.active {
       color: #de492d;

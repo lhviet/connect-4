@@ -36,13 +36,12 @@ export class GameService {
   playerWin$ = this.playerWinSource.asObservable();
 
   constructor() {
-
     // initialize the game state
     this.resetGameState();
-
   }
 
   resetGameState() {
+    // reset game state matrix
     this.store.gameStateMatrix.length = 0;
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
       const row: Coin[] = [];
@@ -51,11 +50,16 @@ export class GameService {
       }
       this.store.gameStateMatrix.push(row);
     }
+
+    // reset available positions to the bottom row
     this.store.availablePositionSet.clear();
     ['50', '51', '52', '53', '54', '55', '56']
       .forEach(pos => this.store.availablePositionSet.add(pos));
+
+    // reset series of win positions of coin
     this.store.winCoinPositions.length = 0;
 
+    // reset players data
     this.store.player1.reset();
     this.store.player2.reset();
 
@@ -93,9 +97,9 @@ export class GameService {
     if (this.store.player2.isComputer) {
       setTimeout(() => {
         const robotCoin = this.store.player2.autoSetCoin(this.store.gameStateMatrix, this.store.availablePositionSet);
+        this.announceNextTurnPlayer(this.store.player1.identity);
         this.checkWinCoins(robotCoin);
         this.updateAvailablePositions();
-        this.announceNextTurnPlayer(this.store.player1.identity);
       }, 700);
     }
   }
@@ -108,9 +112,10 @@ export class GameService {
   private checkWinCoins(coin: Coin) {
     this.store.winCoinPositions.length = 0;
     this.store.winCoinPositions.push(...GameHelper.getWinPositions(this.store.gameStateMatrix, coin));
-    console.log('winCoinPositions = ', this.store.winCoinPositions);
+    // console.log('winCoinPositions = ', this.store.winCoinPositions);
     if (this.store.winCoinPositions && this.store.winCoinPositions.length === 4) {
       this.playerWinSource.next(coin.state);
+      coin.isOfPlayer1() ? this.store.player1.setWin() : this.store.player2.setWin();
     }
   }
   private updateAvailablePositions() {
@@ -136,6 +141,7 @@ export class GameService {
     // console.log(Array.from(this.store.availablePositionSet).toString());
   }
 
+  // switch playing mode, to play with Human or a Computer
   switchPlayer() {
     this.store.player2 = this.store.player2.isComputer ? new Player(ECoin.player2) : new PlayerRobot();
     this.resetGameState();

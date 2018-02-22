@@ -5,6 +5,7 @@ import {Coin} from './coin';
 export class Player implements IPlayer {
 
   count = 0;
+  win = 0;
   identity: ECoin.player1 | ECoin.player2;
   avatar = 'http://d2p04xt0pdicv1.cloudfront.net/images/default-person.png';
 
@@ -16,6 +17,10 @@ export class Player implements IPlayer {
 
   reset() {
     this.count = 0;
+  }
+
+  setWin() {
+    this.win++;
   }
 
   setCoin(coin: Coin) {

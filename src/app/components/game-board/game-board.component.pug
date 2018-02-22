@@ -8,19 +8,19 @@
       thead
         tr
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 0')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 0')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 1')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 1')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 2')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 2')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 3')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 3')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 4')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 4')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 5')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 5')
           th.text-center
-            i.fa.fa-arrow-down.fa-2x([class.active]='hoveringCol === 6')
+            i.fa.fa-arrow-down([class.active]='hoveringCol === 6')
       tbody
         tr(*ngFor='let row of gameMatrix')
           td.text-center.align-middle(*ngFor='let coin of row; let i = index;',

@@ -5,23 +5,35 @@ nav {
 
 .app-component {
   width: 100%;
-  max-width: 800px;
   margin: 0 auto;
   margin-top: 4rem;
   padding: 25px 1rem;
+  position: relative;
 
-  .header-title {
-    font-size: 2rem;
-    padding-bottom: 10px;
-  }
+  .app-players {
+    position: relative;
+    width: 100%;
 
-  .notification {
-    transition: all ease .2s;
-    height: 2rem;
+    @media only screen and (min-width: 768px) {
+      position: absolute;
+      width: 760px;
+      left: calc(50% - 380px);
+    }
   }
 
   .app-game-board {
     max-width: 450px;
     margin: 0 auto;
+    position: relative;
+
+    .header-title {
+      font-size: 2rem;
+      padding-bottom: 10px;
+    }
+
+    .notification {
+      transition: all ease .2s;
+      height: 2rem;
+    }
   }
 }

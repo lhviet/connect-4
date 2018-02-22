@@ -1,6 +1,18 @@
 .game-player {
+
+  width: 125px;
+  transition: all ease .3s;
+
+  &.active {
+    box-shadow: 0 0 11px 3px rgba(0, 75, 155, 0.7);
+  }
+
   img {
     max-width: 100px;
     max-height: 80px
+  }
+
+  .card-text {
+    font-size: .9rem;
   }
 }
