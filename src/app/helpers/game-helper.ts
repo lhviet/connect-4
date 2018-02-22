@@ -26,9 +26,21 @@ module GameHelper {
    */
   export function getWinPositions(gameStateMatrix: Coin[][], coin: Coin): string[] {
     let winCoins: Coin[] = [];
-    // 1. check vertical win
+    // 1. check horizontal win
+    // in most of cases, looks like number of horizontal win possibility is higher than vertical
+    // so far, to offer the best performance, horizontal check will perform first
+    const checkRow = gameStateMatrix[coin.row];
+    // check if the number of winCoins from the same Player on the row is bigger than 3
+    const rowCoins = checkRow.filter(coinInRow => coinInRow.state === coin.state);
+    if (rowCoins.length > 3) {
+      // from left to right, looking for the winCoins in series
+      winCoins = getWinCoins(rowCoins);
+    }
+    if (winCoins.length === 4) {
+      return winCoins.map(winCoin => winCoin.position);
+    }
+    // 2. check vertical win
     // check vertical is the easiest part, because it is one-direction, from top to bottom
-    // so far, to offer the best performance, vertical check should perform first
     // firstly, only check if the height of the column is enough for at least 4 coins
     if (coin.row < 3) { // index from 0 -> 5, check the coin with row index in [0, 1, 2] only
       // check the next 3 coins, from the just-dropped coin (direct from) top to bottom
@@ -39,17 +51,6 @@ module GameHelper {
           winCoins.push(nextCoin);
         }
       }
-    }
-    if (winCoins.length === 4) {
-      return winCoins.map(winCoin => winCoin.position);
-    }
-    // 2. check horizontal win
-    const checkRow = gameStateMatrix[coin.row];
-    // check if the number of winCoins from the same Player on the row is bigger than 3
-    const rowCoins = checkRow.filter(coinInRow => coinInRow.state === coin.state);
-    if (rowCoins.length > 3) {
-      // from left to right, looking for the winCoins in series
-      winCoins = getWinCoins(rowCoins);
     }
     if (winCoins.length === 4) {
       return winCoins.map(winCoin => winCoin.position);

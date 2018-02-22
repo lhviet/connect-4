@@ -6,9 +6,16 @@ export class Player implements IPlayer {
 
   count = 0;
   identity: ECoin.player1 | ECoin.player2;
+  avatar = 'http://d2p04xt0pdicv1.cloudfront.net/images/default-person.png';
+
+  isComputer = false;
 
   constructor(identity: ECoin.player1 | ECoin.player2) {
     this.identity = identity;
+  }
+
+  reset() {
+    this.count = 0;
   }
 
   setCoin(coin: Coin) {
@@ -19,4 +26,8 @@ export class Player implements IPlayer {
     this.count++;
   }
 
+  autoSetCoin(gameStateMatrix: Coin[][], availablePositionSet: Set<string>) {
+    console.log('Sorry, I cannot auto set coins for you :-(');
+    return null;
+  }
 }

@@ -1,7 +1,15 @@
 .game-board {
-  width: 700px;
-  height: 652px;
-  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  padding-top: 92%;
+
+  .game-table {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 
   table {
     width: 100%;

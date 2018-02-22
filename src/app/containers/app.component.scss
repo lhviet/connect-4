@@ -1,0 +1,22 @@
+nav {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.app-component {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 4rem;
+  padding: 25px 1rem;
+
+  .header-title {
+    font-size: 2rem;
+    padding-bottom: 10px;
+  }
+
+  .notification {
+    transition: all ease .2s;
+    height: 2rem;
+  }
+}

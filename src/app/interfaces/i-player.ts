@@ -8,5 +8,13 @@ export interface IPlayer {
   // identity of the player
   identity: ECoin.player1 | ECoin.player2;
 
+  avatar: string;
+
+  isComputer: boolean;
+
+  reset(): void;
+
   setCoin(coin: Coin): void;
+
+  autoSetCoin?(gameStateMatrix: Coin[][], availablePositionSet: Set<string>): Coin;
 }
