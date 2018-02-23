@@ -8,6 +8,7 @@
   border: 2px solid transparent;
   background-color: #e5eef4;
   transition: all ease .2s;
+  position: relative;
 
   &.active {
     border-color: rgba(52, 141, 222, 0.9);

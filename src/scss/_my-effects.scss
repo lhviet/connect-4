@@ -28,3 +28,18 @@
   display: inline-block;
   animation: an-spin 2s infinite linear;
 }
+
+@keyframes an-drop {
+  from {
+    top: -100%;
+    animation-timing-function: ease-in;
+  }
+  to {
+    top: 0;
+    animation-timing-function: ease-out;
+  }
+}
+.an-drop {
+  animation: an-drop 0.4s;
+  animation-fill-mode: forwards;
+}
