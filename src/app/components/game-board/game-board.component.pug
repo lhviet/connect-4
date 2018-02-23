@@ -27,7 +27,7 @@
           [class.win]='winCoinPositions && winCoinPositions.indexOf(coin.position) > -1',
           (click)='onCoinClicked(coin)',
           (mouseenter)='onMouseEnter(columnIndex)')
-            app-game-coin(*ngIf='isPresentationMode',
+            app-game-coin(*ngIf='isPresentationMode', style='width: 100%;height:100%;display:block;',
             [coin]='coin',
             [isAvailable]='availablePositionSet.has(coin.position)')
             span(*ngIf='!isPresentationMode', [class.font-weight-bold]='coin.state > 1') {{coin.state}}
