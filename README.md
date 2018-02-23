@@ -14,7 +14,12 @@ Run `yarn dev:w` for a dev server. Navigate to `http://localhost:8080/`. The app
 
 ## Code scaffolding
 
-Run `yarn prebuild` to generate a HTML from Pug.
+Run `yarn prebuild` to generate HTMLs from Pugs.
+
+- `src/app/components` for UI
+- `src/app/containers` play role of Controllers
+- `src/app/services` share data and logic
+- `src/app/helpers/game-helper.ts` helps to solve complicated things, i.e. check valid positions, check win cases
 
 ## Build
 
