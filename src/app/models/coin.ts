@@ -3,7 +3,7 @@ import {ECoin} from '../enums/e-coin.enum';
 
 export class Coin implements ICoin {
 
-  state;
+  state;  // to determine the coin is unset, or set-by-whom
 
   // encode position as a string to simplify the comparison & filter, instead of using an object like {row: number, col: number}
   // i.e., "43" means row=4, col=3

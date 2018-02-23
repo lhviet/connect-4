@@ -23,10 +23,10 @@
             i.fa.fa-arrow-down([class.active]='hoveringCol === 6')
       tbody
         tr(*ngFor='let row of gameMatrix')
-          td.text-center.align-middle(*ngFor='let coin of row; let i = index;',
+          td.text-center.align-middle(*ngFor='let coin of row; let columnIndex = index;',
           [class.win]='winCoinPositions && winCoinPositions.indexOf(coin.position) > -1',
           (click)='onCoinClicked(coin)',
-          (mouseenter)='onMouseEnter(i)')
+          (mouseenter)='onMouseEnter(columnIndex)')
             app-game-coin(*ngIf='isPresentationMode',
             [coin]='coin',
             [isAvailable]='availablePositionSet.has(coin.position)')

@@ -3,6 +3,7 @@ import {GameService} from '../services/game/game.service';
 import {Coin} from '../models/coin';
 import {ECoin} from '../enums/e-coin.enum';
 import CPlayer from '../constant/c-player';
+import CMessage from '../constant/c-message';
 
 @Component({
   selector: 'app-root',
@@ -35,16 +36,17 @@ export class AppComponent implements OnInit {
 
   }
 
-  onCoinClicked = (coin: Coin) => {
+  onCoinClicked(coin: Coin) {
     if (this.gameStore.winCoinPositions.length === 4) {
-      return this.setErrorWin();
+      return this.setMessage(CMessage.NEW_GAME_REQUIRED);
     }
     if (!coin.isUnset()) {
-      return this.setErrorCoinSet();
+      return this.setMessage(CMessage.COIN_DROPPED_ALREADY);
     }
     if (!this.gameStore.availablePositionSet.has(coin.position)) {
-      return this.setErrorPosition();
+      return this.setMessage(CMessage.COIN_SET_BOTTOM_UP);
     }
+    // gameService responsible to determine who is setting a valid coin
     this.gameService.setCoin(coin);
   }
 
@@ -52,16 +54,8 @@ export class AppComponent implements OnInit {
 
   switchPlayer = () => this.gameService.switchPlayer();
 
-  setErrorWin = () => {
-    this.notificationMessage = 'To continue, please start a New Game';
-    setTimeout(() => this.notificationMessage = '', 3000);
-  }
-  setErrorCoinSet = () => {
-    this.notificationMessage = 'A coin already dropped here';
-    setTimeout(() => this.notificationMessage = '', 3000);
-  }
-  setErrorPosition = () => {
-    this.notificationMessage = 'The Coin must be set from bottom up';
+  setMessage(message: string) {
+    this.notificationMessage = message;
     setTimeout(() => this.notificationMessage = '', 3000);
   }
 }

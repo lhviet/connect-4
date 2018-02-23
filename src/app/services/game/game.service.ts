@@ -11,7 +11,7 @@ interface IStore {
   player1: Player;
   player2: Player | PlayerRobot;
   winCoinPositions: string[];
-  availablePositionSet: Set<string>;
+  availablePositionSet: Set<string>;  // using set of string to reserve the unique character
 }
 
 @Injectable()
@@ -51,7 +51,7 @@ export class GameService {
       this.store.gameStateMatrix.push(row);
     }
 
-    // reset available positions to the bottom row
+    // reset available positions to the (preset) bottom row
     this.store.availablePositionSet.clear();
     ['50', '51', '52', '53', '54', '55', '56']
       .forEach(pos => this.store.availablePositionSet.add(pos));
@@ -66,11 +66,14 @@ export class GameService {
     this.announceNextTurnPlayer(ECoin.player1);
   }
 
-  // announce turn of Player updated
+  // announce the turn of Player is updated
   announceNextTurnPlayer = (player: ECoin.player1 | ECoin.player2) => this.playerTurnSource.next(player);
 
-  // set coin for current Player
-  // all the logic of setting coin in function setCoin in this service
+  /**
+   * set coin for current Player
+   * the logic of setting coin in function setCoin in this service
+   * @param {Coin} coin
+   */
   setCoin(coin: Coin) {
 
     // determine current turn of player
@@ -114,13 +117,17 @@ export class GameService {
     this.store.winCoinPositions.push(...GameHelper.getWinPositions(this.store.gameStateMatrix, coin));
     // console.log('winCoinPositions = ', this.store.winCoinPositions);
     if (this.store.winCoinPositions && this.store.winCoinPositions.length === 4) {
+      // announce the win player identity
       this.playerWinSource.next(coin.state);
+      // increase the winner win's number
       coin.isOfPlayer1() ? this.store.player1.setWin() : this.store.player2.setWin();
     }
   }
+
+  // calculate the available positions of coin for the next turn
   private updateAvailablePositions() {
-    // calculate the available position of coin for the next turn
-    // step 1: retrieve all coins dropped
+
+    // step 1: retrieve all dropped coins
     const dropCoins: Coin[] = [];
     this.store.gameStateMatrix.forEach(row => dropCoins.push(...row.filter(theCoin => !theCoin.isUnset())));
 
@@ -132,7 +139,7 @@ export class GameService {
       }
     });
 
-    // step 3: get all possible positions (overlapped) occupied coins
+    // step 3: removing occupied coins from available positions
     dropCoins.forEach(dropCoin => {
       if (this.store.availablePositionSet.has(dropCoin.position)) {
         this.store.availablePositionSet.delete(dropCoin.position);

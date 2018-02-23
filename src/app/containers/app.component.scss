@@ -1,12 +1,15 @@
 nav {
   max-width: 800px;
   margin: 0 auto;
+
+  .navbar-brand:hover {
+    text-shadow: 1px 1px 2px #787878, 0 0 5em #f6ef54, 0 0 2em #ffb4b4;
+  }
 }
 
 .app-component {
   width: 100%;
-  margin: 0 auto;
-  margin-top: 4rem;
+  margin: 4rem auto 0;
   padding: 25px 1rem;
   position: relative;
 

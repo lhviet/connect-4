@@ -22,10 +22,4 @@ export class GameCoinComponent {
       return '#fbee5a';
     }
   }
-
-  getBorderColor(): string {
-    if (this.coin.isUnset() && this.isAvailable) {
-      return 'rgba(52, 141, 222, 0.9)';
-    }
-  }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {Player} from '../../models/player';
 import {ECoin} from '../../enums/e-coin.enum';
 import CPlayer from '../../constant/c-player';
@@ -18,7 +18,7 @@ export class GamePlayerComponent implements OnChanges {
 
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.playerName = this.player && this.player.identity === ECoin.player1 ? CPlayer.PLAYER_1 : CPlayer.PLAYER_2;
     this.isActive = this.currentPlayerId === this.player.identity;
   }

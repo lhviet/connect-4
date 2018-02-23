@@ -8,4 +8,12 @@
   border: solid 2px $gray-light-d3;
   background-color: #e5eef4;
   transition: all ease .2s;
+
+  &.active {
+    border-color: rgba(52, 141, 222, 0.9);
+  }
+
+  &.active:hover {
+    box-shadow: rgba(120, 216, 239, 0.5) 0 0 12px 5px;
+  }
 }

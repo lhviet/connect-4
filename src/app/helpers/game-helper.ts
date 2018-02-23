@@ -2,15 +2,17 @@ import {Coin} from '../models/coin';
 
 module GameHelper {
 
-  // return an array of available position to set coin for a given coin position
+  /**
+   * return the available position (falling from top = above of coin) to set coin for a given coin position
+   * because the coin falls down, only its above row position is available
+   * @param {Coin} coin
+   * @returns {string}
+   */
   export function getAvailablePositionOfCoin(coin: Coin): string {
-    let availPosition: string;
-    // because the coin falls down, only its above row (or same row in case it is the bottom one) position is available
-    const availRow = coin.row > 0 ? coin.row - 1 : null;
-    if (availRow !== null) {
-      availPosition = availRow.toString() + coin.col.toString();
+    if (coin.row === 0) {
+      return;
     }
-    return availPosition;
+    return ((coin.row - 1).toString() + coin.col.toString());
   }
 
   /**
@@ -35,9 +37,9 @@ module GameHelper {
     if (rowCoins.length > 3) {
       // from left to right, looking for the winCoins in series
       winCoins = getWinCoins(rowCoins);
-    }
-    if (winCoins.length === 4) {
-      return winCoins.map(winCoin => winCoin.position);
+      if (winCoins.length === 4) {
+        return winCoins.map(winCoin => winCoin.position);
+      }
     }
     // 2. check vertical win
     // check vertical is the easiest part, because it is one-direction, from top to bottom
@@ -47,13 +49,14 @@ module GameHelper {
       winCoins = [coin];
       for (let i = 1; i < 4; i++) {
         const nextCoin = gameStateMatrix[coin.row + i][coin.col];
-        if (nextCoin.state === coin.state) {
-          winCoins.push(nextCoin);
+        if (nextCoin.state !== coin.state) {  // checking break first to limit the rounds of loop
+          break;
         }
+        winCoins.push(nextCoin);
       }
-    }
-    if (winCoins.length === 4) {
-      return winCoins.map(winCoin => winCoin.position);
+      if (winCoins.length === 4) {
+        return winCoins.map(winCoin => winCoin.position);
+      }
     }
     // 3. check diagonal win
     // separate to two sub-checks:
@@ -61,10 +64,10 @@ module GameHelper {
     // b. the diagonal-coins from left-bottom to right-top
     const diagonalLT = [];
     const diagonalLB = [];
-    // forming the series of coins from LeftTop
+    // a. forming the series of coins (of same player of this latest coin) from LeftTop
     let r = coin.row - 1;
     let c = coin.col - 1;
-    while (r > -1 && c > -1) {
+    while (r > -1 && c > -1) {  // the left side of the coin
       if (gameStateMatrix[r][c].state === coin.state) {
         diagonalLT.push(gameStateMatrix[r][c]);
       }
@@ -74,20 +77,22 @@ module GameHelper {
     diagonalLT.push(coin);
     r = coin.row + 1;
     c = coin.col + 1;
-    while (r < 6 && c < 7) {
+    while (r < 6 && c < 7) {  // the right side of the coin
       if (gameStateMatrix[r][c].state === coin.state) {
         diagonalLT.push(gameStateMatrix[r][c]);
       }
       r++;
       c++;
     }
+    // start checking the win coins if it has
     if (diagonalLT.length > 3) {
       winCoins = getWinCoins(diagonalLT);
+      if (winCoins.length === 4) {
+        return winCoins.map(winCoin => winCoin.position);
+      }
     }
-    if (winCoins.length === 4) {
-      return winCoins.map(winCoin => winCoin.position);
-    }
-    // forming the series of coins from LeftBottom
+
+    // b. forming the series of coins from LeftBottom
     r = coin.row - 1;
     c = coin.col + 1;
     while (r > -1 && c < 7) {
@@ -107,23 +112,25 @@ module GameHelper {
       r++;
       c--;
     }
+    // start checking the win coins if it has
     if (diagonalLB.length > 3) {
       winCoins = getWinCoins(diagonalLB);
+      if (winCoins.length === 4) {
+        return winCoins.map(winCoin => winCoin.position);
+      }
     }
-    if (winCoins.length === 4) {
-      return winCoins.map(winCoin => winCoin.position);
-    }
+    // no win, return an empty array
     return [];
   }
 
   /**
-   * get series of coins based on column index
+   * get series of coins based on column index (increasing from left-to-right)
    * @param {Coin[]} coins
    * @returns {Coin[]}
    */
   function getWinCoins(coins: Coin[]): Coin[] {
     let winCoins: Coin[] = [];
-    // column index increasing direction, left to right
+    // sorting column index in increasing direction, left to right
     const leftToRightCoins = Array.from(coins).sort((a, b) => a.col - b.col);
     for (const coin of leftToRightCoins) {
       if (winCoins.length === 0) {

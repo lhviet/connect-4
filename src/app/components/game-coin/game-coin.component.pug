@@ -1,1 +1,4 @@
-.game-coin([ngStyle]="{'background-color': getFillColor(), 'border-color': getBorderColor()}")
+.game-coin(
+  [class.active]='coin.isUnset() && isAvailable',
+  [ngStyle]="{'background-color': getFillColor()}"
+)

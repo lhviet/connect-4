@@ -9,7 +9,7 @@
       app-game-player([player]='gameStore.player1', [currentPlayerId]='currentTurnPlayerId')
     .d-block
       app-game-player([player]='gameStore.player2', [currentPlayerId]='currentTurnPlayerId')
-      .text-center.text-muted.cursor-p((click)='switchPlayer()')
+      button.btn.btn-outline-secondary.btn-sm.my-1((click)='switchPlayer()')
         span(*ngIf='gameStore.player2.isComputer') Play with Human
         span(*ngIf='!gameStore.player2.isComputer') Play with Robot
   .app-game-board

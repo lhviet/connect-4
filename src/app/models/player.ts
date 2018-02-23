@@ -5,7 +5,15 @@ import {Coin} from './coin';
 export class Player implements IPlayer {
 
   count = 0;
-  win = 0;
+
+  // protected & private help to encapsulate the object
+  // however, it cannot reflect the interface implemented
+  // so far, the consistency sometimes is not good
+  protected _win = 0; // number of win of this player
+  get win(): number {
+    return this._win;
+  }
+
   identity: ECoin.player1 | ECoin.player2;
   avatar = 'https://www.glamcorner.com.au/media/favicon/default/favicon_revised.png';
 
@@ -20,7 +28,7 @@ export class Player implements IPlayer {
   }
 
   setWin() {
-    this.win++;
+    this._win++;
   }
 
   setCoin(coin: Coin) {
