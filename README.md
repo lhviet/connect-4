@@ -2,6 +2,8 @@
 
 [Connect-4](https://connect-4-35cb3.firebaseapp.com) on Firebase.
 
+![screenshot](http://res.cloudinary.com/ddlt2cjne/image/upload/v1519360497/connect-4_jxyrrn.png "Connect-4 in action")
+
 # ConnectFour
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0.
