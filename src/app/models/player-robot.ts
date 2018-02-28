@@ -11,8 +11,9 @@ export class PlayerRobot extends Player {
   // smart level of the robot, for future implementation
   smartLevel = 1;
 
-  constructor() {
+  constructor(level = 1) {
     super(ECoin.player2);
+    this.smartLevel = level;
   }
 
   setLevel(smartLevel: number) {

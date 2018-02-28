@@ -14,13 +14,15 @@ interface IStore {
   availablePositionSet: Set<string>;  // using set of string to reserve the unique character
 }
 
+const DEFAULT_ROBOT_LEVEL = 2;
+
 @Injectable()
 export class GameService {
 
   store: IStore  = {
     gameStateMatrix: [],
     player1: new Player(ECoin.player1),
-    player2: new PlayerRobot(),
+    player2: new PlayerRobot(DEFAULT_ROBOT_LEVEL),
     winCoinPositions: [],
     availablePositionSet: new Set()
   };
@@ -150,7 +152,7 @@ export class GameService {
 
   // switch playing mode, to play with Human or a Computer
   switchPlayer() {
-    this.store.player2 = this.store.player2.isComputer ? new Player(ECoin.player2) : new PlayerRobot();
+    this.store.player2 = this.store.player2.isComputer ? new Player(ECoin.player2) : new PlayerRobot(DEFAULT_ROBOT_LEVEL);
     this.resetGameState();
   }
 

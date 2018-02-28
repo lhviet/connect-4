@@ -7,9 +7,9 @@
   .app-players.d-flex.justify-content-between
     .d-block
       app-game-player([player]='gameStore.player1', [currentPlayerId]='currentTurnPlayerId')
-    .d-block
+    .d-block.text-center
       app-game-player([player]='gameStore.player2', [currentPlayerId]='currentTurnPlayerId')
-      button.btn.btn-outline-secondary.btn-sm.my-1((click)='switchPlayer()')
+      button.btn.btn-outline-secondary.btn-block.btn-sm.my-1((click)='switchPlayer()')
         span(*ngIf='gameStore.player2.isComputer') Play with Human
         span(*ngIf='!gameStore.player2.isComputer') Play with Robot
       .d-block.text-center(*ngIf='gameStore.player2.isComputer')
