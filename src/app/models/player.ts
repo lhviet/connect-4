@@ -23,6 +23,10 @@ export class Player implements IPlayer {
     this.identity = identity;
   }
 
+  setLevel(level: number) {
+    console.log('Human has no level.');
+  }
+
   reset() {
     this.count = 0;
   }

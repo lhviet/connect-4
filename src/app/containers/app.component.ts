@@ -58,4 +58,9 @@ export class AppComponent implements OnInit {
     this.notificationMessage = message;
     setTimeout(() => this.notificationMessage = '', 3000);
   }
+
+  setRobotLevel = (smartLevel: number) => {
+    this.resetGame();
+    this.gameStore.player2.setLevel(smartLevel);
+  }
 }

@@ -12,6 +12,11 @@
       button.btn.btn-outline-secondary.btn-sm.my-1((click)='switchPlayer()')
         span(*ngIf='gameStore.player2.isComputer') Play with Human
         span(*ngIf='!gameStore.player2.isComputer') Play with Robot
+      .d-block.text-center(*ngIf='gameStore.player2.isComputer')
+        h6 Robot Smart Level
+        .btn-group.btn-group-sm
+          button.btn.btn-outline-secondary([class.active]='gameStore.player2.smartLevel === 1', (click)='setRobotLevel(1)') 1
+          button.btn.btn-outline-secondary([class.active]='gameStore.player2.smartLevel === 2', (click)='setRobotLevel(2)') 2
   .app-game-board
     .header-title.text-muted {{ gameHeaderTitle }}
     app-game-board(

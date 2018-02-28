@@ -12,6 +12,8 @@ export interface IPlayer {
 
   isComputer: boolean;
 
+  setLevel?(level: number): void;
+
   reset(): void;
 
   setWin(): void;  // increase win number
