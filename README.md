@@ -14,6 +14,7 @@ Run `yarn dev:w` for a dev server. Navigate to `http://localhost:8080/`. The app
 
 ## Code scaffolding
 
+Run `yarn` to install needed libraries.
 Run `yarn prebuild` to generate HTMLs from Pugs.
 
 - `src/app/components` for UI
