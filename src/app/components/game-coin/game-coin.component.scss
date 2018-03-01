@@ -7,14 +7,14 @@
   border-radius: 50%;
   border: 2px solid transparent;
   background-color: #e5eef4;
-  transition: all ease .2s;
+  transition: all ease .1s;
   position: relative;
 
   &.active {
-    border-color: rgba(52, 141, 222, 0.9);
+    border-color: #35ABFF;
   }
 
   &.active:hover {
-    box-shadow: rgba(120, 216, 239, 0.5) 0 0 12px 5px;
+    box-shadow: #CBEDFF 0 0 12px 5px;
   }
 }
