@@ -1,4 +1,5 @@
 import {Coin} from '../models/coin';
+import {ECoin} from '../enums/e-coin.enum';
 
 module GameHelper {
 
@@ -8,11 +9,37 @@ module GameHelper {
    * @param {Coin} coin
    * @returns {string}
    */
-  export function getAvailablePositionOfCoin(coin: Coin): string {
+  function getAvailablePositionOfCoin(coin: Coin): string {
     if (coin.row === 0) {
       return;
     }
     return ((coin.row - 1).toString() + coin.col.toString());
+  }
+
+  export function getAvailablePositions(gameStateMatrix: Coin[][], prevAvailPositions: Set<string>): Set<string> {
+
+    const availablePositionSet = new Set<string>(prevAvailPositions);
+
+    // step 1: retrieve all dropped coins
+    const dropCoins: Coin[] = [];
+    gameStateMatrix.forEach(row => dropCoins.push(...row.filter(theCoin => !theCoin.isUnset())));
+
+    // step 2: get available positions of all dropped coins
+    dropCoins.forEach(dropCoin => {
+      const pos = getAvailablePositionOfCoin(dropCoin);
+      if (pos) {
+        availablePositionSet.add(pos);
+      }
+    });
+
+    // step 3: removing occupied coins from available positions
+    dropCoins.forEach(dropCoin => {
+      if (availablePositionSet.has(dropCoin.position)) {
+        availablePositionSet.delete(dropCoin.position);
+      }
+    });
+
+    return availablePositionSet;
   }
 
   /**
@@ -150,6 +177,84 @@ module GameHelper {
       }
     }
     return winCoins;
+  }
+
+  /**
+   * Return the Coin from game state based on its encoded position string
+   * @param {Coin[][]} gameStateMatrix
+   * @param {string} pos
+   * @returns {Coin}
+   */
+  export function getCoinOfPosition(gameStateMatrix: Coin[][], pos: string): Coin {
+    const row = parseInt(pos[0], 10);
+    const col = parseInt(pos[1], 10);
+    return gameStateMatrix[row][col];
+  }
+
+  /**
+   * randomly select an available position of Coin
+   * @param {Coin[][]} gameStateMatrix
+   * @param {Set<string>} availablePositionSet
+   * @returns {Coin}
+   */
+  export function getRandomCoin(gameStateMatrix: Coin[][], availablePositionSet: Set<string>): Coin {
+    const posArr = Array.from(availablePositionSet);
+    const randomPosIndex = Math.floor(Math.random() * posArr.length);
+    return getCoinOfPosition(gameStateMatrix, posArr[randomPosIndex]);
+  }
+
+  const MAX = 10,
+    MIN = -10,
+    DRAW = 0;
+
+  export function abMinimax(gameStateMatrix: Coin[][], availablePositionSet: Set<string>,
+                            latestDropCoin: Coin, isMaxPlayer: boolean, depth: number, alpha: number, beta: number): number {
+    const isWin = getWinPositions(gameStateMatrix, latestDropCoin).length === 4;
+    if (availablePositionSet.size === 0) {
+      // console.log('return DRAW = 0');
+      return DRAW;
+    }
+    if (isMaxPlayer && isWin) {
+      // console.log('ROBOT Win = ', MAX - depth);
+      return (MAX - depth);
+    }
+    if (!isMaxPlayer && isWin) {
+      // console.log('HUMAN win = ', MIN + depth);
+      return (MIN + depth);
+    }
+    if (isMaxPlayer) { // player 2 is Maximizing Player
+      let bestValue = -Infinity;
+      for (const pos of Array.from(availablePositionSet)) {
+        const simulateCoin = getCoinOfPosition(gameStateMatrix, pos);
+        simulateCoin.state = ECoin.player1;
+        const newPositionSet = getAvailablePositions(gameStateMatrix, availablePositionSet);
+        const value = abMinimax(gameStateMatrix, newPositionSet, simulateCoin, false, depth + 1, alpha, beta);
+        console.log('value = ', value);
+        simulateCoin.state = ECoin.unset;
+        bestValue = Math.max(bestValue, value);
+        alpha = Math.max(alpha, value);
+        if (beta <= alpha) {
+          break;
+        }
+      }
+      return bestValue;
+    }
+    else {
+      let bestValue = Infinity;
+      for (const pos of Array.from(availablePositionSet)) {
+        const simulateCoin = getCoinOfPosition(gameStateMatrix, pos);
+        simulateCoin.state = ECoin.player2;
+        const newPositionSet = getAvailablePositions(gameStateMatrix, availablePositionSet);
+        const value = abMinimax(gameStateMatrix, newPositionSet, simulateCoin, true, depth + 1, alpha, beta);
+        simulateCoin.state = ECoin.unset;
+        bestValue = Math.min(bestValue, value);
+        beta = Math.min(beta, value);
+        if (beta <= alpha) {
+          break;
+        }
+      }
+      return bestValue;
+    }
   }
 }
 export default GameHelper;

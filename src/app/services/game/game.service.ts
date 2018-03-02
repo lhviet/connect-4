@@ -128,26 +128,7 @@ export class GameService {
 
   // calculate the available positions of coin for the next turn
   private updateAvailablePositions() {
-
-    // step 1: retrieve all dropped coins
-    const dropCoins: Coin[] = [];
-    this.store.gameStateMatrix.forEach(row => dropCoins.push(...row.filter(theCoin => !theCoin.isUnset())));
-
-    // step 2: get available positions of all dropped coins
-    dropCoins.forEach(dropCoin => {
-      const pos = GameHelper.getAvailablePositionOfCoin(dropCoin);
-      if (pos) {
-        this.store.availablePositionSet.add(pos);
-      }
-    });
-
-    // step 3: removing occupied coins from available positions
-    dropCoins.forEach(dropCoin => {
-      if (this.store.availablePositionSet.has(dropCoin.position)) {
-        this.store.availablePositionSet.delete(dropCoin.position);
-      }
-    });
-    // console.log(Array.from(this.store.availablePositionSet).toString());
+    this.store.availablePositionSet = GameHelper.getAvailablePositions(this.store.gameStateMatrix, this.store.availablePositionSet);
   }
 
   // switch playing mode, to play with Human or a Computer

@@ -28,7 +28,7 @@ export class PlayerRobot extends Player {
     let coinWillBeSet: Coin;
     try {
       if (this.smartLevel === 1) {  // a dumb step from the robot
-        coinWillBeSet = this.getRandomCoin(gameStateMatrix, availablePositionSet);
+        coinWillBeSet = GameHelper.getRandomCoin(gameStateMatrix, availablePositionSet);
         super.setCoin(coinWillBeSet);
       }
       else if (this.smartLevel === 2) {
@@ -39,9 +39,7 @@ export class PlayerRobot extends Player {
         const posArr = Array.from(availablePositionSet);
         for (let i = 0; i < posArr.length; i++) {
           const pos = posArr[i];
-          const row = parseInt(pos[0], 10);
-          const col = parseInt(pos[1], 10);
-          const simulateCoin = gameStateMatrix[row][col];
+          const simulateCoin = GameHelper.getCoinOfPosition(gameStateMatrix, pos);
           // suppose that this coin is from the opponent
           simulateCoin.state = ECoin.player1;
           if (GameHelper.getWinPositions(gameStateMatrix, simulateCoin).length === 4) {
@@ -60,7 +58,38 @@ export class PlayerRobot extends Player {
           }
         }
         if (!coinWillBeSet) { // select coin randomly like level 1
-          coinWillBeSet = this.getRandomCoin(gameStateMatrix, availablePositionSet);
+          coinWillBeSet = GameHelper.getRandomCoin(gameStateMatrix, availablePositionSet);
+        }
+        super.setCoin(coinWillBeSet);
+      }
+      else if (this.smartLevel === 3) {
+        if (this.count === 0) {
+          const arr = Array.from(availablePositionSet)
+            .filter(p => (parseInt(p[0], 10) > 4 && parseInt(p[1], 10) > 0 && parseInt(p[1], 10) < 6));
+          const randomPosIndex = Math.floor(Math.random() * arr.length);
+          coinWillBeSet = GameHelper.getCoinOfPosition(gameStateMatrix, arr[randomPosIndex]);
+        } else {
+          // Robot is player 2 --> max player
+          let bestMove = -Infinity;
+          availablePositionSet.forEach(pos => {
+            const simulateCoin = GameHelper.getCoinOfPosition(gameStateMatrix, pos);
+            // the coin is from this smart Robot
+            simulateCoin.state = ECoin.player2;
+            const simulateAvailableSet = GameHelper.getAvailablePositions(gameStateMatrix, availablePositionSet);
+            const simulateValue =
+              GameHelper.abMinimax(gameStateMatrix, simulateAvailableSet, simulateCoin, true, 0, -Infinity, Infinity);
+            console.log(pos + ' simulateValue = ', simulateValue);
+            if (simulateValue > bestMove) {
+              bestMove = simulateValue;
+              coinWillBeSet = simulateCoin;
+              console.log('bestMove = ', bestMove);
+            }
+            simulateCoin.state = ECoin.unset;
+          });
+        }
+        if (!coinWillBeSet) {
+          coinWillBeSet = GameHelper.getRandomCoin(gameStateMatrix, availablePositionSet);
+          console.log('set random coin ~');
         }
         super.setCoin(coinWillBeSet);
       }
@@ -71,20 +100,6 @@ export class PlayerRobot extends Player {
       console.error('autoSetCoin ERROR = ', err.message);
     }
     return coinWillBeSet;
-  }
-
-  /**
-   * randomly select an available position of Coin
-   * @param {Coin[][]} gameStateMatrix
-   * @param {Set<string>} availablePositionSet
-   * @returns {Coin}
-   */
-  private getRandomCoin(gameStateMatrix: Coin[][], availablePositionSet: Set<string>): Coin {
-    const posArr = Array.from(availablePositionSet);
-    const randomPosIndex = Math.floor(Math.random() * posArr.length);
-    const row = parseInt(posArr[randomPosIndex][0], 10);
-    const col = parseInt(posArr[randomPosIndex][1], 10);
-    return gameStateMatrix[row][col];
   }
 
 }

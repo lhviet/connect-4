@@ -17,6 +17,7 @@
         .btn-group.btn-group-sm
           button.btn.btn-outline-secondary([class.active]='gameStore.player2.smartLevel === 1', (click)='setRobotLevel(1)') 1
           button.btn.btn-outline-secondary([class.active]='gameStore.player2.smartLevel === 2', (click)='setRobotLevel(2)') 2
+          //button.btn.btn-outline-secondary([class.active]='gameStore.player2.smartLevel === 3', (click)='setRobotLevel(3)') 3
   .app-game-board
     .header-title.text-muted {{ gameHeaderTitle }}
     app-game-board(
