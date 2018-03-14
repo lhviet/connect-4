@@ -15,7 +15,7 @@ export class Player implements IPlayer {
   }
 
   identity: ECoin.player1 | ECoin.player2;
-  avatar = 'https://www.glamcorner.com.au/media/favicon/default/favicon_revised.png';
+  avatar = 'https://iconalone.com/sites/default/files/styles/220x220/public/Boy-1.svg_0.png?itok=owcDbTdZ';
 
   isComputer = false;
 
